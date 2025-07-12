@@ -1,4 +1,4 @@
-# Intelligent Traffic System
+# Intelligent Traffic System "FEUX TRICOLORES"
 
 This is a Next.js project that implements an intelligent traffic light management system based on a combination of Petri nets and machine learning.
 
