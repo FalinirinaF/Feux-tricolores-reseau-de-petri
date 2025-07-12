@@ -563,7 +563,7 @@ export default function TrafficLightSystem() {
     <div className="w-full max-w-7xl mx-auto p-6 space-y-6">
       <div className="text-center space-y-2">
         <h1 className="text-3xl font-bold">Système Intelligent de Gestion de Feux Tricolores</h1>
-        <p className="text-muted-foreground">Combinaison de Réseau de Petri et Machine Learning avec Q-Learning</p>
+        <p className="text-muted-foreground">Combinaison de Réseau de Petri et Machine Learning</p>
       </div>
 
       {/* Contrôles */}
@@ -792,7 +792,7 @@ export default function TrafficLightSystem() {
 
               <div className="text-xs text-muted-foreground">
                 <p>
-                  <strong>Q-Learning:</strong> L'agent apprend à optimiser les durées des feux pour minimiser le temps
+                  <strong>ML(Q-Learning):</strong> L'agent apprend à optimiser les durées des feux pour minimiser le temps
                   d'attente.
                 </p>
                 <p>
