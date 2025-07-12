@@ -1,8 +1,8 @@
-import TrafficLightSystem from "../traffic-light-system"
+import TrafficLightSystem from "@/src/traffic-light-system"
 
 export default function Home() {
   return (
-    <main>
+    <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <TrafficLightSystem />
     </main>
   )
