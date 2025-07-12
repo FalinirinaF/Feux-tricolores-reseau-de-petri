@@ -542,6 +542,23 @@ export default function TrafficLightSystem() {
     simulator.setLightStateChecker((direction: string) => petriNet.getCurrentLightState(direction))
   }, [simulator, petriNet])
 
+  // Fonction utilitaire pour traduire l'état du feu
+
+  const translateDirection = (direction: string): string => {
+    switch (direction) {
+      case "north":
+        return "NORD"
+      case "south":
+        return "SUD"
+      case "east":
+        return "EST"
+      case "west":
+        return "OUEST"
+      default:
+        return direction.toUpperCase()
+    }
+  }
+
   return (
     <div className="w-full max-w-7xl mx-auto p-6 space-y-6">
       <div className="text-center space-y-2">
