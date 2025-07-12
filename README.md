@@ -13,6 +13,173 @@ This is a Next.js project that implements an intelligent traffic light managemen
 ## Getting Started
 
 Follow these steps to set up and run the project locally.
+Pour installer ce projet localement dans votre IDE, voici les étapes complètes :
+
+## **Installation Locale**
+
+### **1. Prérequis**
+
+```shellscript
+# Vérifier que Node.js est installé (version 18+)
+node --version
+npm --version
+
+# Si pas installé, télécharger depuis https://nodejs.org/
+```
+
+### **2. Créer le projet Next.js**
+
+```shellscript
+# Créer un nouveau projet Next.js avec TypeScript
+npx create-next-app@latest traffic-light-system --typescript --tailwind --eslint --app --src-dir --import-alias "@/*"
+
+# Aller dans le dossier
+cd traffic-light-system
+```
+
+### **3. Installer les dépendances**
+
+```shellscript
+# Installer shadcn/ui
+npx shadcn@latest init
+
+# Installer les composants UI nécessaires
+npx shadcn@latest add card button slider badge
+
+# Installer Lucide React pour les icônes
+npm install lucide-react
+
+# Installer les types TypeScript (si nécessaire)
+npm install --save-dev @types/node @types/react @types/react-dom
+```
+
+### **4. Fichiers à créer/modifier**
+
+**`src/app/page.tsx`** :
+
+```typescriptreact
+import TrafficLightSystem from '../components/traffic-light-system'
+
+export default function Home() {
+  return (
+    <main>
+      <TrafficLightSystem />
+    </main>
+  )
+}
+```
+
+**`src/components/traffic-light-system.tsx`** :
+Copiez tout le code du composant principal que j'ai fourni.
+
+### **5. Configuration shadcn/ui**
+
+Si `components.json` n'existe pas, créez-le :
+
+```json
+{
+  "$schema": "https://ui.shadcn.com/schema.json",
+  "style": "default",
+  "rsc": true,
+  "tsx": true,
+  "tailwind": {
+    "config": "tailwind.config.js",
+    "css": "src/app/globals.css",
+    "baseColor": "slate",
+    "cssVariables": true
+  },
+  "aliases": {
+    "components": "@/components",
+    "utils": "@/lib/utils"
+  }
+}
+```
+
+### **6. Lancer le projet**
+
+```shellscript
+# Installer toutes les dépendances
+npm install
+
+# Lancer en mode développement
+npm run dev
+```
+
+### **7. Ouvrir dans le navigateur**
+
+```plaintext
+http://localhost:3000
+```
+
+## **Package.json complet**
+
+Votre `package.json` devrait ressembler à ça :
+
+```json
+{
+  "name": "traffic-light-system",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "react": "^18",
+    "react-dom": "^18",
+    "next": "14.0.0",
+    "lucide-react": "^0.294.0",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.0.0",
+    "tailwind-merge": "^2.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^5",
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "autoprefixer": "^10.0.1",
+    "postcss": "^8",
+    "tailwindcss": "^3.3.0",
+    "eslint": "^8",
+    "eslint-config-next": "14.0.0"
+  }
+}
+```
+
+## ️ **IDEs Recommandés**
+
+### **Visual Studio Code**
+
+```shellscript
+# Extensions recommandées :
+# - ES7+ React/Redux/React-Native snippets
+# - Tailwind CSS IntelliSense
+# - TypeScript Importer
+# - Prettier - Code formatter
+```
+
+### **WebStorm/IntelliJ**
+
+- Support TypeScript natif
+- Plugin Tailwind CSS
+- Plugin Next.js
+
+
+## **Dépannage**
+
+Si vous avez des erreurs :
+
+```shellscript
+# Nettoyer le cache
+rm -rf .next node_modules package-lock.json
+npm install
+
+# Réinstaller shadcn/ui
+npx shadcn@latest init --force
+```
 
 ### Prerequisites
 
