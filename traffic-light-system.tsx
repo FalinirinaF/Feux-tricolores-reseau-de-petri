@@ -7,6 +7,36 @@ import { Slider } from "@/components/ui/slider"
 import { Badge } from "@/components/ui/badge"
 import { Play, Pause, RotateCcw, Brain, Activity, Car } from "lucide-react"
 
+// Helper function to translate light states
+const translateLightState = (state: string): string => {
+  switch (state) {
+    case "green":
+      return "VERT"
+    case "yellow":
+      return "JAUNE"
+    case "red":
+      return "ROUGE"
+    default:
+      return "INCONNU"
+  }
+}
+
+// Helper function to translate directions
+const translateDirection = (direction: string): string => {
+  switch (direction) {
+    case "north":
+      return "NORD"
+    case "south":
+      return "SUD"
+    case "east":
+      return "EST"
+    case "west":
+      return "OUEST"
+    default:
+      return direction.toUpperCase()
+  }
+}
+
 // Types pour le système
 interface PetriNetPlace {
   id: string
@@ -67,7 +97,7 @@ class TrafficLightPetriNet {
           id: `${dir}_${color}`,
           tokens: initialTokens,
           capacity: 1,
-          name: `${dir.toUpperCase()} ${color.toUpperCase()}`,
+          name: `${translateDirection(dir)} ${translateLightState(color)}`, // Utiliser les fonctions de traduction globales
         })
       })
     })
@@ -409,7 +439,7 @@ export default function TrafficLightSystem() {
       shouldSwitch = true
     }
     // Changer de jaune vers rouge (+ autre direction vert) après 3s
-    else if (currentLightState === "yellow" && phaseTimerRef.current >= 3) {
+    else if (currentLightState === "yellow" && phaseTimerRef.current >= yellowDuration) {
       shouldSwitch = true
     }
 
@@ -512,6 +542,23 @@ export default function TrafficLightSystem() {
     simulator.setLightStateChecker((direction: string) => petriNet.getCurrentLightState(direction))
   }, [simulator, petriNet])
 
+  // Fonction utilitaire pour traduire l'état du feu
+
+  const translateDirection = (direction: string): string => {
+    switch (direction) {
+      case "north":
+        return "NORD"
+      case "south":
+        return "SUD"
+      case "east":
+        return "EST"
+      case "west":
+        return "OUEST"
+      default:
+        return direction.toUpperCase()
+    }
+  }
+
   return (
     <div className="w-full max-w-7xl mx-auto p-6 space-y-6">
       <div className="text-center space-y-2">
@@ -544,7 +591,7 @@ export default function TrafficLightSystem() {
             </Button>
             <Button onClick={resetSimulation} variant="outline" className="flex items-center gap-2 bg-transparent">
               <RotateCcw className="w-4 h-4" />
-              Reset
+              Réinitialiser
             </Button>
           </div>
 
@@ -565,10 +612,11 @@ export default function TrafficLightSystem() {
               <span className="font-medium">Étape:</span> {currentStep}
             </div>
             <div>
-              <span className="font-medium">Phase:</span> {petriNet.getCurrentPhase().toUpperCase()}
+              <span className="font-medium">Phase:</span>{" "}
+              {petriNet.getCurrentPhase() === "ns" ? "NORD-SUD" : "EST-OUEST"}
             </div>
             <div>
-              <span className="font-medium">Timer:</span> {phaseTimerRef.current}s
+              <span className="font-medium">Minuteur:</span> {phaseTimerRef.current}s
             </div>
             <div>
               <span className="font-medium">Exploration:</span> {(qAgent.explorationRate * 100).toFixed(1)}%
@@ -602,12 +650,12 @@ export default function TrafficLightSystem() {
                 style={{ backgroundColor: getLightColor("north") }}
               ></div>
               <div className="text-xs text-center font-bold">N</div>
-              <div className="text-xs text-center">{petriNet.getCurrentLightState("north")}</div>
+              <div className="text-xs text-center">{translateLightState(petriNet.getCurrentLightState("north"))}</div>
             </div>
 
             {/* Sud */}
             <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex flex-col gap-1">
-              <div className="text-xs text-center">{petriNet.getCurrentLightState("south")}</div>
+              <div className="text-xs text-center">{translateLightState(petriNet.getCurrentLightState("south"))}</div>
               <div className="text-xs text-center font-bold">S</div>
               <div
                 className="w-6 h-6 rounded-full border-2 border-gray-800"
@@ -622,12 +670,12 @@ export default function TrafficLightSystem() {
                 className="w-6 h-6 rounded-full border-2 border-gray-800"
                 style={{ backgroundColor: getLightColor("east") }}
               ></div>
-              <div className="text-xs">{petriNet.getCurrentLightState("east")}</div>
+              <div className="text-xs">{translateLightState(petriNet.getCurrentLightState("east"))}</div>
             </div>
 
             {/* Ouest */}
             <div className="absolute left-4 top-1/2 transform -translate-y-1/2 flex items-center gap-1">
-              <div className="text-xs">{petriNet.getCurrentLightState("west")}</div>
+              <div className="text-xs">{translateLightState(petriNet.getCurrentLightState("west"))}</div>
               <div
                 className="w-6 h-6 rounded-full border-2 border-gray-800"
                 style={{ backgroundColor: getLightColor("west") }}
@@ -694,7 +742,7 @@ export default function TrafficLightSystem() {
               {trafficData.map((data) => (
                 <div key={data.direction} className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
                   <div className="flex items-center gap-3">
-                    <Badge variant="outline">{data.direction.toUpperCase()}</Badge>
+                    <Badge variant="outline">{translateDirection(data.direction)}</Badge>
                     <div
                       className="w-3 h-3 rounded-full"
                       style={{ backgroundColor: getLightColor(data.direction) }}
@@ -756,7 +804,7 @@ export default function TrafficLightSystem() {
         </Card>
       </div>
 
-      {/* État du réseau de Petri */}
+      {/* État du Réseau de Petri */}
       <Card>
         <CardHeader>
           <CardTitle>État du Réseau de Petri</CardTitle>
