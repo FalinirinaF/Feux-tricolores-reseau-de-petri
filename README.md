@@ -194,20 +194,13 @@ If not, you can download Node.js from [nodejs.org](https://nodejs.org/).
 
 ### Installation
 
-1.  **Clone the repository:**
-
-    \`\`\`bash
-    git clone https://github.com/your-username/Feux-tricolore-r-seau-de-p-tri-.git
-    cd Feux-tricolore-r-seau-de-p-tri-
-    \`\`\`
-
-2.  **Install dependencies:**
+1.  **Install dependencies:**
 
     \`\`\`bash
     npm install
     \`\`\`
 
-3.  **Initialize shadcn/ui components:**
+2.  **Initialize shadcn/ui components:**
 
     This project uses `shadcn/ui` for its UI components. You need to initialize it and add the required components.
 
@@ -218,7 +211,7 @@ If not, you can download Node.js from [nodejs.org](https://nodejs.org/).
 
     Follow the prompts during initialization. Ensure the `components.json` file is correctly configured (it should be automatically set up by `npx shadcn@latest init`).
 
-4.  **Run the development server:**
+3.  **Run the development server:**
 
     \`\`\`bash
     npm run dev
